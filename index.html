@@ -16,177 +16,217 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:,">
-<link rel="preload" href="fonts/shippori-mincho-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.className = 'js';</script>
 <style>
 /* Wabis Work, Lattice Lamp Collection.
-   One axis: every block sits on the centre line or is mirrored across it.
-   One page colour, one typeface, and no accent colour: the lamps are the only colour. */
+   Website framing: a fixed header, full-width bands, and split sections that mirror from one band to the next.
+   One axis, one typeface, one page colour family, no accent colour: the lamps are the only colour.
+   In split sections the words and the photo share one height and one centre line, so type and image read as a pair. */
 
 @font-face { font-family: "Shippori Mincho"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/shippori-mincho-latin-400-normal.woff2") format("woff2"); }
 @font-face { font-family: "Shippori Mincho"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/shippori-mincho-latin-500-normal.woff2") format("woff2"); }
 
 :root {
-  --paper: #F2EEE7;       /* the page */
-  --ink: #2A2521;         /* text */
-  --soft: #6C645A;        /* quieter text */
-  --line: #D8D1C4;        /* hairlines */
-  --field: #8E867A;       /* form field outlines */
-  --dusk: #110D0A;        /* the one dark room */
+  --paper: #F2EEE7;
+  --deep: #E8E2D7;
+  --ink: #2A2521;
+  --soft: #6C645A;
+  --line: #D6CEC0;
+  --field: #8E867A;
+  --dusk: #110D0A;
   --dusk-ink: #EFE8DC;
   --dusk-soft: #B3A999;
+  --dusk-line: #3A322B;
   --font: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --pad: clamp(1.25rem, 5vw, 4rem);
-  --measure: 34rem;
-  --section: clamp(3.25rem, 7vw, 5.5rem);
-  --gap-l: clamp(3rem, 6.5vw, 5rem);
+  --head: 4.5rem;
+  --section: clamp(4rem, 9vw, 7.5rem);
+  --space: clamp(3.5rem, 7vw, 6rem);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font);
-  font-weight: 400;
-  font-size: clamp(1.0625rem, 0.99rem + 0.32vw, 1.1875rem);
-  line-height: 1.9;
-  text-align: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: var(--head); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: clamp(1.0625rem, 0.99rem + 0.32vw, 1.1875rem); line-height: 1.9; text-align: center; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 h1, h2, h3, p, figure, blockquote, ul, ol { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 h1, h2, h3 { font-weight: 400; }
-h1, h2, h3, p, li { text-wrap: balance; }   /* even line lengths, so each block is symmetric */
+h1, h2, h3, p, li { text-wrap: balance; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.28em; }
+button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 ::selection { background: var(--ink); color: var(--paper); }
-section[id] { scroll-margin-top: 1.5rem; }
-
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.skip { position: absolute; left: 50%; top: 0; transform: translate(-50%, -120%); background: var(--ink); color: var(--paper); padding: 0.6em 1.4em; text-decoration: none; z-index: 2; }
+.skip { position: absolute; left: 50%; top: 0; transform: translate(-50%, -120%); background: var(--ink); color: var(--paper); padding: 0.6em 1.4em; text-decoration: none; z-index: 30; }
 .skip:focus { transform: translate(-50%, 0); }
 
-/* Layout */
-.wrap { width: 100%; max-width: 74rem; margin-inline: auto; padding-inline: var(--pad); }
-.stack > * + * { margin-top: var(--flow, 1.5rem); }
-.col { max-width: var(--measure); margin-inline: auto; }
-section { padding-block: var(--section); }
-.axis { width: 1px; height: clamp(3rem, 6vw, 4.5rem); margin-inline: auto; background: var(--line); }
-
 /* Type */
-h1 { font-size: clamp(2.1rem, 1.15rem + 4.3vw, 4rem); line-height: 1.24; letter-spacing: 0.01em; max-width: 13.5em; margin-inline: auto; }
-h2 { font-size: clamp(1.75rem, 1.1rem + 2.7vw, 2.75rem); line-height: 1.34; max-width: 17em; margin-inline: auto; }
+h1 { font-size: clamp(2.1rem, 1.2rem + 4vw, 4rem); line-height: 1.22; letter-spacing: 0.01em; }
+h2 { font-size: clamp(1.75rem, 1.15rem + 2.5vw, 2.7rem); line-height: 1.32; }
 h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02em; }
-.lead { font-size: clamp(1.1rem, 1rem + 0.55vw, 1.35rem); line-height: 1.75; max-width: 30em; margin-inline: auto; }
-.statement { font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.85rem); line-height: 1.55; max-width: 21em; margin-inline: auto; }
+.lead { font-size: clamp(1.1rem, 1rem + 0.55vw, 1.35rem); line-height: 1.75; }
+.statement { font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.85rem); line-height: 1.55; }
 .statement .line { display: block; text-wrap: balance; }
 .spaced { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.36em; padding-left: 0.36em; text-transform: uppercase; color: var(--soft); }
 .quiet { color: var(--soft); }
-.gap-s { --flow: 0.9rem; }
-.gap-m { --flow: 2.4rem; }
-.gap-l { --flow: var(--gap-l); }
 
-/* Header */
-.site-head { padding: clamp(1.25rem, 2.6vw, 2rem) var(--pad) 0; }
-.wordmark { display: inline-block; font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem); font-weight: 500; letter-spacing: 0.46em; padding-left: 0.46em; text-transform: uppercase; text-decoration: none; }
-.nav { display: flex; justify-content: center; margin-top: 0.5rem; }
-.nav a { width: 6.75em; padding: 0.8em 0; font-size: 0.9rem; letter-spacing: 0.08em; text-decoration: none; }
-.nav a:hover { text-decoration: underline; }
+/* Layout */
+.wrap { width: 100%; max-width: 76rem; margin-inline: auto; padding-inline: var(--pad); }
+.narrow { max-width: 36rem; margin-inline: auto; }
+.stack > * + * { margin-top: var(--flow, 1.4rem); }
+.gap-s { --flow: 0.8rem; }
+.gap-m { --flow: 2.2rem; }
+.gap-l { --flow: clamp(2.75rem, 5.5vw, 4.5rem); }
+.after { margin-top: var(--space); }
+.band { padding-block: var(--section); }
+.band--deep { background: var(--deep); }
+.band--dusk { background: var(--dusk); color: var(--dusk-ink); }
+.band--dusk .quiet, .band--dusk .spaced { color: var(--dusk-soft); }
 
-/* Button */
-.btn { display: inline-block; padding: 0.95em 2.4em 0.95em 2.52em; border: 1px solid currentColor; font-size: 0.95rem; letter-spacing: 0.12em; text-decoration: none; transition: background-color 0.25s ease, color 0.25s ease; }
-.btn:hover { background: var(--ink); color: var(--paper); }
+/* Split: photo and words side by side, mirrored band to band. Both halves share one width and one centre line. */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; max-width: 66rem; margin-inline: auto; }
+.split--flip .split-media { order: 2; }
+.split-words { max-width: 27rem; margin-inline: auto; }
 
-/* Photo frames. If a photo is missing it removes itself and the soft tone below stands in. */
-.frame { position: relative; overflow: hidden; margin-inline: auto; background: linear-gradient(180deg, #E8E2D7, #DAD2C3); }
+/* Photo frames. If a photo is missing it removes itself and the soft tone stands in. */
+.frame { position: relative; display: block; overflow: hidden; margin-inline: auto; background: linear-gradient(180deg, #E3DDD1, #D6CDBD); }
 .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.band--dusk .frame { background: linear-gradient(180deg, #1F1913, #0D0A08); }
 .r45 { aspect-ratio: 4 / 5; }
 .r11 { aspect-ratio: 1 / 1; }
-.frame--tall { width: min(100%, 30rem); }
-.frame--night { background: linear-gradient(180deg, #1F1913, #0D0A08); }
+.split .frame { width: 100%; }
 
-/* Hero: one frame. The lamp and the headline share it, sized to fit the first screen.
-   A veil of the page colour lifts the top of the photo so the words sit in the light. */
-.hero { padding-top: clamp(1.5rem, 3vw, 2.25rem); }
-.frame--hero { width: max(17rem, min(100%, 40rem, (100vh - 11rem) * 0.8)); width: max(17rem, min(100%, 40rem, (100svh - 11rem) * 0.8)); container-type: inline-size; }
-.frame--hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(242, 238, 231, 0.66) 0%, rgba(242, 238, 231, 0.42) 24%, rgba(242, 238, 231, 0) 48%); pointer-events: none; }
-.hero-words { position: absolute; z-index: 1; inset: 0 0 auto 0; padding: 9% 7% 0; }
-.hero-words .spaced { color: var(--ink); font-size: clamp(0.68rem, 2.6vw, 0.8rem); font-size: clamp(0.68rem, 2.15cqw, 0.8rem); }
-.hero-words h1 { margin-top: 0.5em; font-size: clamp(1.55rem, 7vw, 3rem); font-size: clamp(1.55rem, 8.4cqw, 3.2rem); line-height: 1.22; }
-/* The photo comes up gently, like a dimmer, once it has loaded */
-.js .frame--hero img { opacity: 0; }
-.js .frame--hero img.is-on { opacity: 1; transition: opacity 2.6s cubic-bezier(0.3, 0.1, 0.2, 1); }
+/* Header: fixed to the top, the name on the centre line, two links mirrored on each side */
+.site-head { position: sticky; top: 0; z-index: 20; height: var(--head); background: rgba(242, 238, 231, 0.94); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.head-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 100%; max-width: 76rem; margin-inline: auto; padding-inline: var(--pad); }
+.head-nav { display: flex; gap: clamp(1.25rem, 3.5vw, 3rem); }
+.head-nav--left { justify-content: flex-end; padding-right: clamp(1.5rem, 4.5vw, 4rem); }
+.head-nav--right { justify-content: flex-start; padding-left: clamp(1.5rem, 4.5vw, 4rem); }
+.head-nav a { width: 5.5em; padding: 0.6em 0; font-size: 0.92rem; letter-spacing: 0.08em; text-decoration: none; }
+.head-nav--left a { text-align: right; }
+.head-nav--right a { text-align: left; }
+.head-nav a:hover { text-decoration: underline; }
+.wordmark { display: inline-block; font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem); font-weight: 500; letter-spacing: 0.46em; padding-left: 0.46em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
 
-/* The one dark room */
-.dusk { height: clamp(7rem, 18vw, 14rem); }
-.dusk--in { background: linear-gradient(to bottom, #F2EEE7 0%, #E8E4DD 12.5%, #CFCBC5 25%, #ABA7A1 37.5%, #827E79 50%, #585450 62.5%, #34302C 75%, #1B1714 87.5%, #110D0A 100%); }
-.dusk--out { background: linear-gradient(to top, #F2EEE7 0%, #E8E4DD 12.5%, #CFCBC5 25%, #ABA7A1 37.5%, #827E79 50%, #585450 62.5%, #34302C 75%, #1B1714 87.5%, #110D0A 100%); }
-.ritual { background: var(--dusk); color: var(--dusk-ink); padding-block: clamp(1.5rem, 4vw, 3rem); }
-.ritual .quiet { color: var(--dusk-soft); }
-.star { width: min(72%, 21rem); aspect-ratio: 1 / 1; margin-inline: auto; -webkit-mask-image: radial-gradient(circle closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 70%, transparent 100%); }
+/* Button */
+.btn { display: inline-block; padding: 0.95em 2.4em 0.95em 2.52em; border: 1px solid currentColor; background: transparent; font-size: 0.95rem; letter-spacing: 0.12em; text-decoration: none; cursor: pointer; transition: background-color 0.25s ease, color 0.25s ease; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+
+/* Hero: the photo fills the screen height, its sides melt into a band of its own tone */
+.hero { position: relative; display: grid; place-items: center; height: calc(100vh - var(--head)); height: calc(100svh - var(--head)); min-height: 34rem; max-height: 62rem; overflow: hidden; background: #B3ABA0; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: -80px; z-index: -1; background: url("images/hero.jpg") center / cover no-repeat; filter: blur(56px) saturate(0.9); }
+.hero-photo { position: relative; height: 100%; aspect-ratio: 4 / 5; max-width: 100%; container-type: inline-size; }
+.hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 15%, #000 85%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 15%, #000 85%, transparent 100%); }
+.hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(242, 238, 231, 0.6) 0%, rgba(242, 238, 231, 0.36) 24%, rgba(242, 238, 231, 0) 46%); pointer-events: none; }
+.hero-words { position: absolute; z-index: 1; inset: 0 0 auto 0; padding: 9% 9% 0; }
+.hero-words .spaced { color: var(--ink); font-size: clamp(0.68rem, 2.6vw, 0.8rem); font-size: clamp(0.68rem, 2.1cqw, 0.82rem); }
+.hero-words h1 { margin-top: 0.5em; font-size: clamp(1.55rem, 7vw, 3rem); font-size: clamp(1.55rem, 8.2cqw, 3.3rem); }
+.js .hero-photo img { opacity: 0; }
+.js .hero-photo img.is-on { opacity: 1; transition: opacity 2.6s cubic-bezier(0.3, 0.1, 0.2, 1); }
+.intro { padding-block: clamp(3rem, 6vw, 4.5rem); border-bottom: 1px solid var(--line); }
+
+/* Ritual: the one dark room */
+.star { width: min(64%, 19rem); aspect-ratio: 1 / 1; margin-inline: auto; -webkit-mask-image: radial-gradient(circle closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 70%, transparent 100%); }
 .star img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Mirrored pairs and threes */
-.trio, .pair { display: grid; gap: clamp(0.6rem, 2vw, 1.75rem); margin-inline: auto; }
-.trio { grid-template-columns: repeat(3, 1fr); max-width: 62rem; }
-.pair { grid-template-columns: repeat(2, 1fr); max-width: 54rem; }
-.trio .frame, .pair .frame { width: 100%; }
-
-.quote { max-width: 32rem; margin-inline: auto; padding-top: 2.4rem; border-top: 1px solid var(--line); }
+/* Process */
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.6rem, 2vw, 1.75rem); max-width: 66rem; margin-inline: auto; }
+.trio .frame { width: 100%; }
+.quote { max-width: 34rem; margin-inline: auto; }
 .quote p { font-size: clamp(1.1rem, 1rem + 0.55vw, 1.35rem); line-height: 1.75; }
 .quote footer { margin-top: 1rem; font-size: 0.92rem; color: var(--soft); }
 
-.specs { max-width: 31rem; margin-inline: auto; border-top: 1px solid var(--line); }
-.specs li { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+/* Product */
+.specs { border-top: 1px solid var(--line); }
+.specs li { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+
+/* Made your way: shape, wood and chain */
+.choose { max-width: 62rem; margin-inline: auto; }
+.choose .group > h3 { margin-bottom: 1.4rem; }
+.choose .group + .group { margin-top: clamp(2.75rem, 5vw, 4rem); padding-top: clamp(2.75rem, 5vw, 4rem); border-top: 1px solid var(--line); }
+.options { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(0.9rem, 2.4vw, 2rem); }
+.opt { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; padding: 0; border: 0; background: none; cursor: pointer; color: var(--soft); }
+.opt[aria-pressed="true"] { color: var(--ink); }
+.opt-shape { width: clamp(8.5rem, 20vw, 12.5rem); }
+.opt-shape .frame { width: 100%; outline: 1px solid transparent; outline-offset: 5px; transition: outline-color 0.2s ease; }
+.opt-round { width: 7.5rem; }
+.swatch { display: block; width: clamp(4.25rem, 10vw, 5.75rem); aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; outline: 1px solid transparent; outline-offset: 5px; transition: outline-color 0.2s ease; }
+.swatch img { width: 100%; height: 100%; object-fit: cover; }
+.swatch--black { background: radial-gradient(circle at 35% 30%, #5A544E, #1C1A18 60%, #0D0C0B); }
+.swatch--antique { background: radial-gradient(circle at 35% 30%, #C2A26A, #7E6337 60%, #4E3C20); }
+.swatch--polished { background: radial-gradient(circle at 35% 30%, #F6E3A6, #CFA854 55%, #8E6A26); }
+.opt:hover .frame, .opt:hover .swatch { outline-color: var(--line); }
+.opt[aria-pressed="true"] .frame, .opt[aria-pressed="true"] .swatch { outline-color: var(--ink); }
+.opt-name { font-size: 0.98rem; letter-spacing: 0.04em; }
+.choice-line { min-height: 1.9em; }
 
 /* Three steps */
 .steps-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(2.25rem, 4vw, 4rem); max-width: 64rem; margin-inline: auto; }
 .steps-list .num { display: block; font-size: clamp(2.2rem, 1.6rem + 2vw, 3.2rem); line-height: 1; color: var(--soft); }
 .steps-list h3 { margin-top: 1.1rem; }
 .steps-list p { margin-top: 0.5rem; max-width: 17em; margin-inline: auto; }
-
 .letgo { color: var(--soft); }
-.letgo li + li { margin-top: 0.35rem; }
+.letgo li + li { margin-top: 0.6rem; }
 
-/* Featured collection */
-.lamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 2.4vw, 2.25rem); max-width: 70rem; margin-inline: auto; }
+/* Collection with a filter row: every set stays centred */
+.filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem 0.5rem; }
+.filter button { padding: 0.55em 1.2em; border: 1px solid transparent; background: none; cursor: pointer; font-size: 0.95rem; letter-spacing: 0.08em; color: var(--soft); }
+.filter button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); }
+.filter button:hover { color: var(--ink); }
+.lamps { --g: clamp(1rem, 2.4vw, 2.25rem); display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(2.5rem, 5vw, 4rem) var(--g); max-width: 72rem; margin-inline: auto; }
+.lamps > li { width: calc((100% - 3 * var(--g)) / 4); }
+.lamps > li[hidden] { display: none; }
 .lamps .frame { width: 100%; }
 .lamps h3 { margin-top: 1.15rem; font-size: 1.1rem; }
 .lamps p { font-size: 0.95rem; line-height: 1.6; color: var(--soft); }
 .lamps a { display: inline-block; margin-top: 0.2rem; padding: 0.45em 0.8em; font-size: 0.9rem; letter-spacing: 0.06em; }
 
 /* Inquiry form */
-.form { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.6rem 1.25rem; max-width: 44rem; margin-inline: auto; }
+.form { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.4rem 1.1rem; }
 .form .half { grid-column: span 3; }
-.form .third { grid-column: span 2; }
 .form .full { grid-column: 1 / -1; }
 .form label { display: block; margin-bottom: 0.4rem; font-size: 0.92rem; color: var(--soft); }
-.form input, .form select, .form textarea { width: 100%; margin: 0; padding: 0.8em 1em; border: 1px solid var(--field); border-radius: 0; background: transparent; color: var(--ink); font: inherit; line-height: 1.5; text-align: center; -webkit-appearance: none; appearance: none; }
-.form select { text-align-last: center; padding-inline: 2.2em; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236C645A' stroke-width='1.4'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.95em center; }
-.form textarea { min-height: 9.5rem; text-align: left; resize: vertical; }
-.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible { outline-offset: 2px; }
-.form button { cursor: pointer; background: transparent; color: var(--ink); font-family: inherit; }
+.form input, .form select, .form textarea { width: 100%; margin: 0; padding: 0.8em 0.9em; border: 1px solid var(--field); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-size: 0.98rem; line-height: 1.5; text-align: center; -webkit-appearance: none; appearance: none; }
+.form select { text-align-last: center; padding-inline: 1.9em; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236C645A' stroke-width='1.4'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.8em center; }
+.form textarea { min-height: 8.5rem; text-align: left; resize: vertical; }
 .form-note { min-height: 1.9em; font-size: 0.95rem; color: var(--soft); }
 
-/* Footer */
-.site-foot { padding: var(--section) 0 clamp(2.5rem, 6vw, 4rem); }
-.site-foot .fine { font-size: 0.88rem; color: var(--soft); }
+/* Footer: one dark band, three columns mirrored around the centre */
+.site-foot { background: var(--dusk); color: var(--dusk-ink); padding: clamp(3.5rem, 7vw, 5.5rem) 0 clamp(2rem, 4vw, 3rem); }
+.foot-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; max-width: 60rem; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; }
+.foot-cols h3 { font-size: 1rem; margin-bottom: 0.9rem; }
+.foot-cols p, .foot-cols li { font-size: 0.95rem; line-height: 2; color: var(--dusk-soft); }
+.foot-cols a { text-decoration: none; }
+.foot-cols a:hover { text-decoration: underline; color: var(--dusk-ink); }
+.foot-base { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 1.75rem; border-top: 1px solid var(--dusk-line); font-size: 0.86rem; color: var(--dusk-soft); }
 
-/* Small screens: the same axis, fewer columns */
-@media (max-width: 46rem) {
+/* Tablet and phone: the same axis, one column */
+@media (max-width: 52rem) {
+  .split { grid-template-columns: 1fr; gap: clamp(2rem, 6vw, 3rem); }
+  .split--flip .split-media { order: 0; }
+  .split .frame { max-width: 30rem; }
   .steps-list { grid-template-columns: 1fr; gap: 2.75rem; }
-  .lamps { grid-template-columns: repeat(2, 1fr); }
-  .form .half, .form .third { grid-column: 1 / -1; }
+  .lamps > li { width: calc((100% - var(--g)) / 2); }
+  .foot-cols { grid-template-columns: 1fr; gap: 2.25rem; }
+}
+@media (max-width: 40rem) {
+  :root { --head: 6rem; }
+  .head-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; row-gap: 0.15rem; }
+  .head-row .wordmark { grid-column: 1 / -1; grid-row: 1; justify-self: center; }
+  .head-nav { gap: 1rem; }
+  .head-nav--left { grid-row: 2; padding-right: 0.5rem; }
+  .head-nav--right { grid-row: 2; padding-left: 0.5rem; }
+  .head-nav a { width: auto; min-width: 4.4em; font-size: 0.86rem; padding: 0.45em 0; }
+  .hero { height: auto; min-height: 0; max-height: none; display: block; }
+  .hero-photo { width: 100%; height: auto; }
+  .hero-photo img { -webkit-mask-image: none; mask-image: none; }
+  .form .half { grid-column: 1 / -1; }
+  .opt-round { width: 5.75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .frame--hero img, .js .frame--hero img.is-on { opacity: 1; transition: none; }
-  .btn { transition: none; }
+  .js .hero-photo img, .js .hero-photo img.is-on { opacity: 1; transition: none; }
+  .btn, .opt .frame, .opt .swatch { transition: none; }
 }
 </style>
 </head>
@@ -194,107 +234,187 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-head">
-  <a class="wordmark" href="#top">Wabis Work</a>
-  <nav class="nav" aria-label="Sections">
-    <a href="#lamps">Lamps</a>
-    <a href="#craft">Craft</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="head-row">
+    <nav class="head-nav head-nav--left" aria-label="Story">
+      <a href="#ritual">Ritual</a>
+      <a href="#craft">Craft</a>
+    </nav>
+    <a class="wordmark" href="#top">Wabis Work</a>
+    <nav class="head-nav head-nav--right" aria-label="Lamps and contact">
+      <a href="#lamps">Lamps</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main id="main">
 
   <!-- 1. Hero -->
-  <section id="top" class="hero">
-    <div class="wrap stack">
-      <div class="frame frame--hero r45">
-        <img src="images/hero.jpg" width="1280" height="1600" alt="A dark wood lattice cube lamp glowing on a pale surface, its light fanning out in soft rays." fetchpriority="high" onerror="this.remove()">
-        <div class="hero-words">
-          <p class="spaced">Lattice Lamp Collection</p>
-          <h1>Light that turns Space into Inspiration</h1>
-        </div>
+  <section id="top" class="hero" aria-labelledby="hero-title">
+    <div class="hero-photo">
+      <img src="images/hero.jpg" width="1280" height="1600" alt="A dark wood lattice cube lamp glowing on a pale surface, its light fanning out in soft rays." fetchpriority="high" onerror="this.remove()">
+      <div class="hero-words">
+        <p class="spaced">Lattice Lamp Collection</p>
+        <h1 id="hero-title">Light that turns Space into Inspiration</h1>
       </div>
+    </div>
+  </section>
+  <div class="intro">
+    <div class="wrap stack">
       <p class="spaced">Illuminating Intention</p>
-      <p class="lead gap-m">Unique, handcrafted functional art that radiates beauty and meaning into everyday moments.</p>
+      <p class="lead narrow">Unique, handcrafted functional art that radiates beauty and meaning into everyday moments.</p>
       <p class="gap-m"><a class="btn" href="#contact">Contact the maker</a></p>
     </div>
-  </section>
-
-  <div class="axis" aria-hidden="true"></div>
+  </div>
 
   <!-- 2. The Problem -->
-  <section class="problem">
-    <div class="wrap stack">
+  <section class="band">
+    <div class="wrap stack narrow">
       <h2>Your Space Deserves More than Ordinary Light</h2>
       <p class="lead">It’s time to end the search...</p>
-      <p class="col gap-s">Stop scrolling through pages and pages of unremarkable, mass-produced fixtures that look and feel all the same.</p>
+      <p class="gap-s">Stop scrolling through pages and pages of unremarkable, mass-produced fixtures that look and feel all the same.</p>
     </div>
   </section>
 
-  <!-- 3. Invitation into Ritual: the one dark room -->
-  <div class="dusk dusk--in" aria-hidden="true"></div>
-  <section class="ritual">
-    <div class="wrap stack">
-      <h2>An Invitation into Ritual</h2>
-      <p class="lead">Most lighting fills a room. This one shapes it.</p>
-      <figure class="frame frame--tall frame--night r45 gap-l">
-        <img src="images/ritual-room.jpg" width="1120" height="1400" alt="A lit lattice cube on a pedestal in a dark room, throwing a grid of light across the wall." loading="lazy" decoding="async" onerror="this.remove()">
-      </figure>
-      <h3 class="gap-l">The Practice</h3>
-      <p class="col gap-s">At the heart of Wabis Work is an invitation, to create ritual, and live intention. The simple action of turning on a light becomes an opportunity, to pause, to take a breath, to be present. In this moment, set an intention, and as the light brings illumination, let your intention radiate into your space.</p>
-      <figure class="star gap-l">
+  <!-- 3. Invitation into Ritual: the one dark room. Photo left. -->
+  <section id="ritual" class="band band--dusk">
+    <div class="wrap">
+      <div class="split">
+        <figure class="split-media frame r45">
+          <img src="images/ritual-room.jpg" width="1120" height="1400" alt="A lit lattice cube on a pedestal in a dark room, throwing a grid of light across the wall." loading="lazy" decoding="async" onerror="this.remove()">
+        </figure>
+        <div class="split-words stack">
+          <h2>An Invitation into Ritual</h2>
+          <p class="lead">Most lighting fills a room. This one shapes it.</p>
+          <h3 class="gap-l">The Practice</h3>
+          <p class="gap-s">At the heart of Wabis Work is an invitation, to create ritual, and live intention. The simple action of turning on a light becomes an opportunity, to pause, to take a breath, to be present. In this moment, set an intention, and as the light brings illumination, let your intention radiate into your space.</p>
+        </div>
+      </div>
+      <figure class="star after">
         <img src="images/ritual-star.jpg" width="800" height="800" alt="The view into a lit tower lamp, where the light forms a six-pointed star." loading="lazy" decoding="async" onerror="this.remove()">
       </figure>
     </div>
   </section>
-  <div class="dusk dusk--out" aria-hidden="true"></div>
 
-  <!-- 4. The Process -->
-  <section id="craft" class="process">
-    <div class="wrap stack">
-      <h2>The Process</h2>
-      <p class="lead">Small-batch craft. Never mass produced.</p>
-      <div class="trio gap-l">
+  <!-- 4. The Process. Photo right. -->
+  <section id="craft" class="band">
+    <div class="wrap">
+      <div class="split split--flip">
+        <figure class="split-media frame r45">
+          <img src="images/craft-tall.jpg" width="1120" height="1400" alt="A lattice panel seen up close in the workshop, in black and white." loading="lazy" decoding="async" onerror="this.remove()">
+        </figure>
+        <div class="split-words stack">
+          <h2>The Process</h2>
+          <p class="lead">Small-batch craft. Never mass produced.</p>
+          <p class="statement gap-l">Built with heart, by a single pair of hands, from beginning to end.</p>
+          <p>Like you, I believe functional art should nourish the soul while serving daily life. Grown from a deep respect for natural materials, intentional design, and the imperfect beauty of wabi-sabi, I build pieces meant to be enjoyed for generations.</p>
+        </div>
+      </div>
+      <div class="trio after">
         <figure class="frame r11"><img src="images/craft-1.jpg" width="800" height="800" alt="Lattice panels of pale wood laid out across the workbench." loading="lazy" decoding="async" onerror="this.remove()"></figure>
         <figure class="frame r11"><img src="images/craft-2.jpg" width="800" height="800" alt="A hand holding the hexagonal end of a tower lamp, showing its joinery." loading="lazy" decoding="async" onerror="this.remove()"></figure>
         <figure class="frame r11"><img src="images/craft-3.jpg" width="800" height="800" alt="A lattice frame partway through assembly, its notched pieces slotted together." loading="lazy" decoding="async" onerror="this.remove()"></figure>
       </div>
-      <p class="statement gap-l">Built with heart, by a single pair of hands, from beginning to end.</p>
-      <p class="col">Like you, I believe functional art should nourish the soul while serving daily life. Grown from a deep respect for natural materials, intentional design, and the imperfect beauty of wabi-sabi, I build pieces meant to be enjoyed for generations.</p>
-      <blockquote class="quote gap-m">
+      <blockquote class="quote after">
         <p>“I put my hands to work knowing the task, seeing time and intention bloom into something genuinely beautiful.”</p>
         <footer>Robert Furin, founder of Wabis Work</footer>
       </blockquote>
     </div>
   </section>
 
-  <div class="axis" aria-hidden="true"></div>
-
-  <!-- 5. The Product -->
-  <section class="product">
-    <div class="wrap stack">
-      <h2>The Product</h2>
-      <p class="col">Each piece is an offering of functional beauty: sculpture and utility in one object. Every use is an opportunity to fill your room with light and intention. Crafted with an attention to detail meant to be enjoyed over a lifetime.</p>
-      <div class="pair gap-l">
-        <figure class="frame r45"><img src="images/product-1.jpg" width="960" height="1200" alt="A dark wood lattice cube pendant on a black chain, its Edison bulb glowing inside." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-        <figure class="frame r45"><img src="images/product-2.jpg" width="960" height="1200" alt="The same cube pendant from another side, light showing through the lattice." loading="lazy" decoding="async" onerror="this.remove()"></figure>
+  <!-- 5. The Product. Photo left. -->
+  <section class="band band--deep">
+    <div class="wrap">
+      <div class="split">
+        <figure class="split-media frame r45">
+          <img src="images/product-1.jpg" width="960" height="1200" alt="A dark wood lattice cube pendant on a black chain, its Edison bulb glowing inside." loading="lazy" decoding="async" onerror="this.remove()">
+        </figure>
+        <div class="split-words stack">
+          <h2>The Product</h2>
+          <p>Each piece is an offering of functional beauty: sculpture and utility in one object. Every use is an opportunity to fill your room with light and intention. Crafted with an attention to detail meant to be enjoyed over a lifetime.</p>
+          <ul class="specs gap-l">
+            <li>2200K Edison bulb in amber glass</li>
+            <li>Finished with boiled linseed oil</li>
+            <li>Dimmer for adjustable ambient glow</li>
+            <li>Offered in solid ash, alder or walnut</li>
+            <li>Choice of black, antique brass or polished brass chain</li>
+          </ul>
+        </div>
       </div>
-      <ul class="specs gap-l">
-        <li>2200K Edison bulb in amber glass</li>
-        <li>Finished with boiled linseed oil</li>
-        <li>Dimmer for adjustable ambient glow</li>
-        <li>Offered in solid ash, alder or walnut</li>
-        <li>Choice of black, antique brass or polished brass chain</li>
-      </ul>
     </div>
   </section>
 
-  <div class="axis" aria-hidden="true"></div>
-
-  <!-- 6. Three-Step Plan -->
-  <section class="steps">
+  <!-- 6. Made your way: the buyer chooses shape, wood and chain, and the choice goes into the inquiry form -->
+  <section id="made" class="band">
     <div class="wrap stack">
-      <h2>Three simple steps to a more beautiful, intentional home.</h2>
+      <h2>Made Your Way</h2>
+      <p class="narrow">Every lamp is built by hand, so you choose how yours is made: its shape, its wood and its chain.</p>
+      <div class="choose gap-l">
+        <div class="group" role="group" aria-labelledby="g-shape">
+          <h3 id="g-shape">Shape</h3>
+          <div class="options" data-group="shape">
+            <button type="button" class="opt opt-shape" aria-pressed="false" data-value="Small Cube">
+              <span class="frame r45"><img src="images/lamp-small-cube-mid-dark.jpg" width="640" height="800" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Small Cube</span>
+            </button>
+            <button type="button" class="opt opt-shape" aria-pressed="false" data-value="Small Tower">
+              <span class="frame r45"><img src="images/lamp-small-tower-mid-dark.jpg" width="640" height="800" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Small Tower</span>
+            </button>
+            <button type="button" class="opt opt-shape" aria-pressed="false" data-value="Tower Pendant">
+              <span class="frame r45"><img src="images/lamp-tower-light.jpg" width="640" height="800" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Tower Pendant</span>
+            </button>
+            <button type="button" class="opt opt-shape" aria-pressed="false" data-value="Cube Pendant">
+              <span class="frame r45"><img src="images/product-2.jpg" width="960" height="1200" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Cube Pendant</span>
+            </button>
+          </div>
+        </div>
+        <div class="group" role="group" aria-labelledby="g-wood">
+          <h3 id="g-wood">Wood</h3>
+          <div class="options" data-group="wood">
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Ash">
+              <span class="swatch"><img src="images/wood-ash.jpg" width="360" height="360" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Ash</span>
+            </button>
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Alder">
+              <span class="swatch"><img src="images/wood-alder.jpg" width="360" height="360" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Alder</span>
+            </button>
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Walnut">
+              <span class="swatch"><img src="images/wood-walnut.jpg" width="360" height="360" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <span class="opt-name">Walnut</span>
+            </button>
+          </div>
+        </div>
+        <div class="group" role="group" aria-labelledby="g-chain">
+          <h3 id="g-chain">Chain</h3>
+          <div class="options" data-group="chain">
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Black">
+              <span class="swatch swatch--black" aria-hidden="true"></span>
+              <span class="opt-name">Black</span>
+            </button>
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Antique brass">
+              <span class="swatch swatch--antique" aria-hidden="true"></span>
+              <span class="opt-name">Antique brass</span>
+            </button>
+            <button type="button" class="opt opt-round" aria-pressed="false" data-value="Polished brass">
+              <span class="swatch swatch--polished" aria-hidden="true"></span>
+              <span class="opt-name">Polished brass</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p id="choice-line" class="lead choice-line gap-l" aria-live="polite">Choose a shape, a wood and a chain.</p>
+      <p class="gap-m"><a id="ask" class="btn" href="#contact">Ask about this lamp</a></p>
+    </div>
+  </section>
+
+  <!-- 7. Three-Step Plan -->
+  <section class="band band--deep">
+    <div class="wrap stack">
+      <h2 class="narrow">Three simple steps to a more beautiful, intentional home.</h2>
       <ol class="steps-list gap-l">
         <li>
           <span class="num" aria-hidden="true">01</span>
@@ -316,160 +436,182 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
     </div>
   </section>
 
-  <div class="axis" aria-hidden="true"></div>
-
-  <!-- 7. Be Brilliant -->
-  <section class="brilliant">
-    <div class="wrap stack">
-      <h2>Be Brilliant</h2>
-      <ul class="letgo gap-m">
-        <li>Let go of generic styles and objects with no story.</li>
-        <li>Let go of mass-produced products and craft lost to convenience.</li>
-        <li>Let go of forgettable rooms and spaces that don’t hold your interest.</li>
-      </ul>
-      <figure class="frame frame--tall r45 gap-l">
-        <img src="images/embrace.jpg" width="1120" height="1400" alt="A lit tower pendant with a trailing vine, casting lattice patterns on a warm wall." loading="lazy" decoding="async" onerror="this.remove()">
-      </figure>
-      <p class="statement gap-l"><span class="line">Embrace warmth. Stillness.</span> <span class="line">A radiance that is unmistakably yours.</span></p>
-      <p class="lead gap-s">A light that asks you to pause and notice.</p>
+  <!-- 8. Be Brilliant. Photo right. -->
+  <section class="band">
+    <div class="wrap">
+      <div class="split split--flip">
+        <figure class="split-media frame r45">
+          <img src="images/embrace.jpg" width="1120" height="1400" alt="A lit tower pendant with a trailing vine, casting lattice patterns on a warm wall." loading="lazy" decoding="async" onerror="this.remove()">
+        </figure>
+        <div class="split-words stack">
+          <h2>Be Brilliant</h2>
+          <ul class="letgo gap-m">
+            <li>Let go of generic styles and objects with no story.</li>
+            <li>Let go of mass-produced products and craft lost to convenience.</li>
+            <li>Let go of forgettable rooms and spaces that don’t hold your interest.</li>
+          </ul>
+          <p class="statement gap-l"><span class="line">Embrace warmth. Stillness.</span> <span class="line">A radiance that is unmistakably yours.</span></p>
+          <p class="gap-s">A light that asks you to pause and notice.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="axis" aria-hidden="true"></div>
-
-  <!-- 8. Featured Collection. Names and descriptions are working titles until Robert supplies the final ones. -->
-  <section id="lamps" class="collection">
+  <!-- 9. Featured Collection, with a filter row. Names are working titles until Robert supplies the final ones. -->
+  <section id="lamps" class="band band--deep">
     <div class="wrap stack">
       <h2>Featured Collection</h2>
-      <p class="col">Each lamp is a singular object. Quantities are limited by hand and time.</p>
+      <p class="narrow">Each lamp is a singular object. Quantities are limited by hand and time.</p>
       <p class="gap-s quiet">Price upon request</p>
+      <div class="filter gap-m" role="group" aria-label="Show lamps">
+        <button type="button" aria-pressed="true" data-kind="all">All</button>
+        <button type="button" aria-pressed="false" data-kind="cube">Cubes</button>
+        <button type="button" aria-pressed="false" data-kind="tower">Towers</button>
+        <button type="button" aria-pressed="false" data-kind="pendant">Pendants</button>
+      </div>
       <ul class="lamps gap-l">
-        <li>
+        <li data-kind="tower">
           <figure class="frame r45"><img src="images/lamp-small-tower-dark.jpg" width="640" height="800" alt="Small tower lamp in dark wood, lit, standing on a wooden table." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Tower</h3>
-          <p>Dark wood</p>
+          <h3>Small Tower</h3><p>Dark wood</p>
           <a href="#contact" data-lamp="Small Tower, dark wood">Inquire<span class="vh"> about the Small Tower in dark wood</span></a>
         </li>
-        <li>
+        <li data-kind="cube">
           <figure class="frame r45"><img src="images/lamp-small-cube-dark.jpg" width="640" height="800" alt="Small cube lamp in dark wood, lit, balanced on one corner." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Cube</h3>
-          <p>Dark wood</p>
+          <h3>Small Cube</h3><p>Dark wood</p>
           <a href="#contact" data-lamp="Small Cube, dark wood">Inquire<span class="vh"> about the Small Cube in dark wood</span></a>
         </li>
-        <li>
+        <li data-kind="cube">
           <figure class="frame r45"><img src="images/lamp-small-cube-mid-dark.jpg" width="640" height="800" alt="Small cube lamp in mid-dark wood, lit, balanced on one corner." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Cube</h3>
-          <p>Mid-dark wood</p>
+          <h3>Small Cube</h3><p>Mid-dark wood</p>
           <a href="#contact" data-lamp="Small Cube, mid-dark wood">Inquire<span class="vh"> about the Small Cube in mid-dark wood</span></a>
         </li>
-        <li>
+        <li data-kind="tower">
           <figure class="frame r45"><img src="images/lamp-small-tower-light.jpg" width="640" height="800" alt="Small tower lamp in light wood, lit, standing on a wooden table." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Tower</h3>
-          <p>Light wood</p>
+          <h3>Small Tower</h3><p>Light wood</p>
           <a href="#contact" data-lamp="Small Tower, light wood">Inquire<span class="vh"> about the Small Tower in light wood</span></a>
         </li>
-        <li>
+        <li data-kind="pendant">
           <figure class="frame r45"><img src="images/lamp-large-tower-multi-wood.jpg" width="640" height="800" alt="Large tower pendant in several woods, lit, hanging from a chain." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Large Tower</h3>
-          <p>Multi-wood</p>
+          <h3>Large Tower</h3><p>Multi-wood</p>
           <a href="#contact" data-lamp="Large Tower, multi-wood">Inquire<span class="vh"> about the Large Tower in multi-wood</span></a>
         </li>
-        <li>
+        <li data-kind="tower">
           <figure class="frame r45"><img src="images/lamp-small-tower-mid-dark.jpg" width="640" height="800" alt="Small tower lamp in mid-dark wood, lit, with a brass hook on top." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Tower</h3>
-          <p>Mid-dark wood</p>
+          <h3>Small Tower</h3><p>Mid-dark wood</p>
           <a href="#contact" data-lamp="Small Tower, mid-dark wood">Inquire<span class="vh"> about the Small Tower in mid-dark wood</span></a>
         </li>
-        <li>
+        <li data-kind="tower">
           <figure class="frame r45"><img src="images/lamp-small-tower-mixed-wood.jpg" width="640" height="800" alt="Small tower lamp in mixed woods, lit, with a brass ring on top." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Small Tower</h3>
-          <p>Mixed wood</p>
+          <h3>Small Tower</h3><p>Mixed wood</p>
           <a href="#contact" data-lamp="Small Tower, mixed wood">Inquire<span class="vh"> about the Small Tower in mixed wood</span></a>
         </li>
-        <li>
+        <li data-kind="pendant">
           <figure class="frame r45"><img src="images/lamp-tower-light.jpg" width="640" height="800" alt="Tower pendant in light wood, lit, with green leaves trailing from its chain." loading="lazy" decoding="async" onerror="this.remove()"></figure>
-          <h3>Tower</h3>
-          <p>Light wood</p>
+          <h3>Tower</h3><p>Light wood</p>
           <a href="#contact" data-lamp="Tower, light wood">Inquire<span class="vh"> about the Tower in light wood</span></a>
         </li>
       </ul>
     </div>
   </section>
 
-  <div class="axis" aria-hidden="true"></div>
-
-  <!-- 9. Contact -->
-  <section id="contact" class="contact">
+  <!-- 10. Contact. Photo left. -->
+  <section id="contact" class="band">
     <div class="wrap stack">
       <h2>Now is the Time to Shine</h2>
-      <p class="col">Discover handcrafted lattice lamps made to support your space, your rituals, and your sense of being.</p>
-      <figure class="frame frame--tall r45 gap-l">
-        <img src="images/home.jpg" width="1120" height="1400" alt="A lit tower pendant hanging among trailing vines above a pale cabinet." loading="lazy" decoding="async" onerror="this.remove()">
-      </figure>
-      <h3 class="gap-l">Contact the Maker</h3>
-      <p class="col gap-s">Connect with the artisan to check availability and price.</p>
-      <form id="inquiry" class="form gap-m">
-        <div class="half">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" autocomplete="name" required>
+      <p class="narrow">Discover handcrafted lattice lamps made to support your space, your rituals, and your sense of being.</p>
+      <div class="split gap-l">
+        <figure class="split-media frame r45">
+          <img src="images/home.jpg" width="1120" height="1400" alt="A lit tower pendant hanging among trailing vines above a pale cabinet." loading="lazy" decoding="async" onerror="this.remove()">
+        </figure>
+        <div class="split-words stack">
+          <h3>Contact the Maker</h3>
+          <p class="gap-s">Connect with the artisan to check availability and price.</p>
+          <form id="inquiry" class="form gap-m">
+            <div class="half">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="half">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="full">
+              <label for="lamp">Lamp</label>
+              <select id="lamp" name="lamp">
+                <option>Not sure yet</option>
+                <option>Made to order: Small Cube</option>
+                <option>Made to order: Small Tower</option>
+                <option>Made to order: Tower Pendant</option>
+                <option>Made to order: Cube Pendant</option>
+                <option>Small Tower, dark wood</option>
+                <option>Small Cube, dark wood</option>
+                <option>Small Cube, mid-dark wood</option>
+                <option>Small Tower, light wood</option>
+                <option>Large Tower, multi-wood</option>
+                <option>Small Tower, mid-dark wood</option>
+                <option>Small Tower, mixed wood</option>
+                <option>Tower, light wood</option>
+              </select>
+            </div>
+            <div class="half">
+              <label for="wood">Wood</label>
+              <select id="wood" name="wood">
+                <option>No preference</option>
+                <option>Ash</option>
+                <option>Alder</option>
+                <option>Walnut</option>
+              </select>
+            </div>
+            <div class="half">
+              <label for="chain">Chain</label>
+              <select id="chain" name="chain">
+                <option>No preference</option>
+                <option>Black</option>
+                <option>Antique brass</option>
+                <option>Polished brass</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5"></textarea>
+            </div>
+            <div class="full">
+              <button class="btn" type="submit">Send inquiry</button>
+            </div>
+            <p id="form-note" class="form-note full" role="status" aria-live="polite"></p>
+          </form>
         </div>
-        <div class="half">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required>
-        </div>
-        <div class="third">
-          <label for="lamp">Lamp</label>
-          <select id="lamp" name="lamp">
-            <option>Not sure yet</option>
-            <option>Small Tower, dark wood</option>
-            <option>Small Cube, dark wood</option>
-            <option>Small Cube, mid-dark wood</option>
-            <option>Small Tower, light wood</option>
-            <option>Large Tower, multi-wood</option>
-            <option>Small Tower, mid-dark wood</option>
-            <option>Small Tower, mixed wood</option>
-            <option>Tower, light wood</option>
-          </select>
-        </div>
-        <div class="third">
-          <label for="wood">Wood</label>
-          <select id="wood" name="wood">
-            <option>No preference</option>
-            <option>Ash</option>
-            <option>Alder</option>
-            <option>Walnut</option>
-          </select>
-        </div>
-        <div class="third">
-          <label for="chain">Chain</label>
-          <select id="chain" name="chain">
-            <option>No preference</option>
-            <option>Black</option>
-            <option>Antique brass</option>
-            <option>Polished brass</option>
-          </select>
-        </div>
-        <div class="full">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5"></textarea>
-        </div>
-        <div class="full">
-          <button class="btn" type="submit">Send inquiry</button>
-        </div>
-        <p id="form-note" class="form-note full" role="status" aria-live="polite"></p>
-      </form>
+      </div>
     </div>
   </section>
 
 </main>
 
-<div class="axis" aria-hidden="true"></div>
-
 <footer class="site-foot">
-  <div class="wrap stack">
+  <div class="wrap">
     <p class="wordmark">Wabis Work</p>
-    <p class="gap-s">Handcrafted lattice lamps by Robert Furin</p>
-    <p class="fine gap-m">© 2026 Wabis Work. Designed by <a href="https://nrlstudios.com" rel="noopener">Netrunner’s Lair</a></p>
+    <div class="foot-cols">
+      <div>
+        <h3>Visit</h3>
+        <ul>
+          <li><a href="#ritual">Ritual</a></li>
+          <li><a href="#craft">Craft</a></li>
+          <li><a href="#made">Made your way</a></li>
+          <li><a href="#lamps">Lamps</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>The Maker</h3>
+        <p>Handcrafted lattice lamps by Robert Furin</p>
+        <p>Solid ash, alder or walnut</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p><a href="#contact">Send an inquiry</a></p>
+        <p>Price upon request</p>
+      </div>
+    </div>
+    <p class="foot-base">© 2026 Wabis Work. Designed by <a href="https://nrlstudios.com" rel="noopener">Netrunner’s Lair</a></p>
   </div>
 </footer>
 
@@ -478,36 +620,70 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
   var d = document;
 
   // The hero photo comes up gently once it has loaded.
-  var hero = d.querySelector('.frame--hero img');
+  var hero = d.querySelector('.hero-photo img');
   if (hero) {
     var on = function () { requestAnimationFrame(function () { hero.classList.add('is-on'); }); };
     if (hero.complete && hero.naturalWidth) { on(); } else { hero.addEventListener('load', on); }
   }
 
+  var lamp = d.getElementById('lamp'), wood = d.getElementById('wood'), chain = d.getElementById('chain');
+
+  // Made your way: one choice per group, a sentence that reads the choice back, and a button that carries it into the form.
+  var pick = { shape: '', wood: '', chain: '' };
+  var line = d.getElementById('choice-line');
+  function article(w) { return /^[AEIOU]/i.test(w) ? 'an' : 'a'; }
+  function readBack() {
+    if (!pick.shape && !pick.wood && !pick.chain) { line.textContent = 'Choose a shape, a wood and a chain.'; return; }
+    var s = 'Your lamp: ' + (pick.shape ? article(pick.shape) + ' ' + pick.shape : 'a lamp');
+    if (pick.wood) { s += ' in ' + pick.wood.toLowerCase(); }
+    if (pick.chain) { s += ' with ' + article(pick.chain) + ' ' + pick.chain.toLowerCase() + ' chain'; }
+    line.textContent = s + '.';
+  }
+  d.querySelectorAll('.options').forEach(function (group) {
+    var key = group.getAttribute('data-group');
+    group.querySelectorAll('.opt').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var was = b.getAttribute('aria-pressed') === 'true';
+        group.querySelectorAll('.opt').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', was ? 'false' : 'true');
+        pick[key] = was ? '' : b.getAttribute('data-value');
+        readBack();
+      });
+    });
+  });
+  d.getElementById('ask').addEventListener('click', function () {
+    if (pick.shape) { lamp.value = 'Made to order: ' + pick.shape; }
+    if (pick.wood) { wood.value = pick.wood; }
+    if (pick.chain) { chain.value = pick.chain; }
+  });
+
+  // Collection filter: show one kind at a time; every set stays centred.
+  var items = d.querySelectorAll('.lamps > li');
+  d.querySelectorAll('.filter button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.getAttribute('data-kind');
+      d.querySelectorAll('.filter button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      items.forEach(function (li) { li.hidden = !(k === 'all' || li.getAttribute('data-kind') === k); });
+    });
+  });
+
   // "Inquire" under a lamp chooses that lamp in the form.
-  var lamp = d.getElementById('lamp');
   d.querySelectorAll('[data-lamp]').forEach(function (a) {
-    a.addEventListener('click', function () { if (lamp) { lamp.value = a.getAttribute('data-lamp'); } });
+    a.addEventListener('click', function () { lamp.value = a.getAttribute('data-lamp'); });
   });
 
   // Inquiry form. Put Robert's inquiry address between the quotes at launch.
   // While it is empty, the form explains that the draft is not connected and sends nothing.
   var INQUIRY_EMAIL = '';
-  var form = d.getElementById('inquiry');
-  var note = d.getElementById('form-note');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!INQUIRY_EMAIL) {
-        note.textContent = 'Draft preview: this form is not connected yet, so nothing was sent.';
-        return;
-      }
-      var f = new FormData(form);
-      var body = ['Name: ' + f.get('name'), 'Email: ' + f.get('email'), 'Lamp: ' + f.get('lamp'), 'Wood: ' + f.get('wood'), 'Chain: ' + f.get('chain'), '', f.get('message')].join('\n');
-      location.href = 'mailto:' + INQUIRY_EMAIL + '?subject=' + encodeURIComponent('Lamp inquiry: ' + f.get('lamp')) + '&body=' + encodeURIComponent(body);
-      note.textContent = 'Your email app is opening with the inquiry ready to send.';
-    });
-  }
+  var form = d.getElementById('inquiry'), note = d.getElementById('form-note');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!INQUIRY_EMAIL) { note.textContent = 'Draft preview: this form is not connected yet, so nothing was sent.'; return; }
+    var f = new FormData(form);
+    var body = ['Name: ' + f.get('name'), 'Email: ' + f.get('email'), 'Lamp: ' + f.get('lamp'), 'Wood: ' + f.get('wood'), 'Chain: ' + f.get('chain'), '', f.get('message')].join('\n');
+    location.href = 'mailto:' + INQUIRY_EMAIL + '?subject=' + encodeURIComponent('Lamp inquiry: ' + f.get('lamp')) + '&body=' + encodeURIComponent(body);
+    note.textContent = 'Your email app is opening with the inquiry ready to send.';
+  });
 })();
 </script>
 </body>
