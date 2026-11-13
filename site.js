@@ -34,34 +34,54 @@
     start();
   }
 
-  // ---- Alive photos: drift with the scroll, lean toward the cursor like a magnet, settle back to centre ----
+  // ---- Alive photos: they drift with the scroll and lean toward the cursor, or toward the way the phone is tilted ----
+  // The hero photos lean too. Everything eases slowly back to centre.
   var live = [].slice.call(d.querySelectorAll('[data-live]')).map(function (el) {
-    return { el: el, img: el.querySelector('img'), mx: 0, my: 0, tx: 0, ty: 0, py: 0 };
+    return { el: el, img: el.querySelector('img'), mx: 0, my: 0, tx: 0, ty: 0, scroll: true };
   });
+  if (hero) { live.push({ el: hero, imgs: hero.querySelectorAll('.slide'), mx: 0, my: 0, tx: 0, ty: 0, scroll: false }); }
+  var tiltX = 0, tiltY = 0, tilting = false;
   if (live.length && !still) {
     if (finePointer) {
       live.forEach(function (o) {
         o.el.addEventListener('pointermove', function (e) {
           var r = o.el.getBoundingClientRect();
-          o.tx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1 .. 1 from the centre
+          o.tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
           o.ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
         });
         o.el.addEventListener('pointerleave', function () { o.tx = 0; o.ty = 0; });
       });
     }
+    // Phones and tablets: follow the tilt of the device
+    var onTilt = function (e) {
+      if (e.gamma === null || e.beta === null) return;
+      tilting = true;
+      tiltX = Math.max(-1, Math.min(1, e.gamma / 25));          // left-right
+      tiltY = Math.max(-1, Math.min(1, (e.beta - 45) / 25));    // forward-back, around a natural holding angle
+    };
+    var listenTilt = function () { window.addEventListener('deviceorientation', onTilt); };
+    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iPhone asks once; the first touch anywhere on the page opens the question
+      var ask = function () {
+        d.removeEventListener('touchend', ask);
+        DeviceOrientationEvent.requestPermission().then(function (s) { if (s === 'granted') listenTilt(); }).catch(function () {});
+      };
+      d.addEventListener('touchend', ask);
+    } else if (window.DeviceOrientationEvent && !finePointer) { listenTilt(); }
+
     var tick = function () {
       var vh = window.innerHeight;
       live.forEach(function (o) {
-        if (!o.img) return;
         var r = o.el.getBoundingClientRect();
         if (r.bottom < -50 || r.top > vh + 50) return;
-        // scroll: how far the frame's centre is from the screen's centre, -1 .. 1
-        var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
-        o.py = t * r.height * 0.03;
-        // magnet: ease toward the cursor, ease back to centre
-        o.mx += (o.tx - o.mx) * 0.035; o.my += (o.ty - o.my) * 0.035;
-        var lean = r.width * 0.012;
-        o.img.style.transform = 'translate3d(' + (o.mx * lean).toFixed(2) + 'px,' + (o.py + o.my * lean).toFixed(2) + 'px,0) scale(1.1)';
+        var gx = tilting ? tiltX : o.tx, gy = tilting ? tiltY : o.ty;
+        o.mx += (gx - o.mx) * 0.035; o.my += (gy - o.my) * 0.035;
+        var lean = Math.min(r.width, 900) * (o.scroll ? 0.012 : 0.01);
+        var py = 0;
+        if (o.scroll) { var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2); py = t * r.height * 0.03; }
+        var v = (o.mx * lean).toFixed(2) + 'px ' + (py + o.my * lean).toFixed(2) + 'px';
+        if (o.img) { o.img.style.translate = v; }
+        if (o.imgs) { o.imgs.forEach(function (im) { im.style.translate = v; }); }
       });
       requestAnimationFrame(tick);
     };
