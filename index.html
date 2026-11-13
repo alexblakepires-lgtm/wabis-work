@@ -34,32 +34,34 @@
   </div>
 </header>
 <main id="main">
-  <section class="hero" aria-label="Lattice lamps in light">
-    <img class="slide is-on" src="images/hero-1.jpg" width="2400" height="1350" style="object-position: 54% 50%" alt="A lattice cube lamp on the floor, throwing a web of light across a warm wall." fetchpriority="high">
-    <img class="slide" src="images/hero-2.jpg" width="2400" height="1350" style="object-position: 62% 50%" alt="A lattice cube balanced on its corner, light fanning across a wooden table." loading="lazy" decoding="async">
-    <img class="slide" src="images/hero-3.jpg" width="2400" height="1350" style="object-position: 52% 50%" alt="A lattice cube on a table, its glow spreading in rays across the wood." loading="lazy" decoding="async">
+  <section class="hero" tabindex="0" aria-roledescription="carousel" aria-label="Lattice lamps in light. Click, swipe or use the arrow keys to change the photo.">
+    <img class="slide is-on" src="images/hero-4.jpg" width="2400" height="1350" style="object-position: 50% 50%" alt="A lattice cube glowing on a low shelf in a sunlit room, beside a sofa." draggable="false" fetchpriority="high">
+    <img class="slide" src="images/hero-1.jpg" width="2400" height="1350" style="object-position: 54% 50%" alt="A lattice cube lamp on the floor, throwing a web of light across a warm wall." draggable="false" loading="lazy" decoding="async">
+    <img class="slide" src="images/hero-2.jpg" width="2400" height="1350" style="object-position: 62% 50%" alt="A lattice cube balanced on its corner, light fanning across a wooden table." draggable="false" loading="lazy" decoding="async">
+    <img class="slide" src="images/hero-5.jpg" width="2400" height="1350" style="object-position: 50% 50%" alt="A grid of soft light cast across a floor by a lattice lamp." draggable="false" loading="lazy" decoding="async">
+    <img class="slide" src="images/hero-3.jpg" width="2400" height="1350" style="object-position: 52% 50%" alt="A lattice cube on a table, its glow spreading in rays across the wood." draggable="false" loading="lazy" decoding="async">
     <div class="dots" role="group" aria-label="Choose a photo">
       <button type="button" aria-current="true"><span class="vh">Photo 1</span></button>
       <button type="button" aria-current="false"><span class="vh">Photo 2</span></button>
       <button type="button" aria-current="false"><span class="vh">Photo 3</span></button>
+      <button type="button" aria-current="false"><span class="vh">Photo 4</span></button>
+      <button type="button" aria-current="false"><span class="vh">Photo 5</span></button>
     </div>
   </section>
 
-  <section class="duo" aria-label="Introduction">
-    <div class="duo-side duo-dim"><div class="duo-text stack" data-reveal>
-      <p class="spaced">Illuminating Intention</p>
-      <h2 class="gap-m">Your Space Deserves More than Ordinary Light</h2>
-      <p class="lead">It’s time to end the search...</p>
-      <p class="gap-s">Stop scrolling through pages and pages of unremarkable, mass-produced fixtures that look and feel all the same.</p>
-    </div></div>
-    <div class="duo-side duo-glow"><div class="duo-text stack" data-reveal>
+  <section class="band intro">
+    <div class="wrap stack narrow" data-reveal>
+      <h2>Your Space Deserves More than Ordinary Light</h2>
+      <p class="gap-m quiet">It’s time to end the search...</p>
+    </div>
+    <div class="wrap stack" style="margin-top: clamp(5rem, 12vw, 9rem)" data-reveal>
       <p class="spaced">Lattice Lamp Collection</p>
       <h1 class="gap-m">Light that turns Space into Inspiration</h1>
-      <p class="lead">Unique, handcrafted functional art that radiates beauty and meaning into everyday moments.</p>
-    </div></div>
+      <p class="lead narrow gap-m">Unique, handcrafted functional art that radiates beauty and meaning into everyday moments.</p>
+    </div>
   </section>
 
-  <section class="split split--short">
+  <section class="split">
     <a class="split-media" href="ritual.html" data-live tabindex="-1" aria-hidden="true"><img src="images/ritual.jpg" width="1120" height="1400" alt="" loading="lazy" decoding="async" onerror="this.remove()"></a>
     <div class="split-words"><div class="inner stack" data-reveal>
       <h2>An Invitation into Ritual</h2>
@@ -67,7 +69,7 @@
       <p class="gap-m"><a class="more" href="ritual.html">Enter the ritual</a></p>
     </div></div>
   </section>
-  <section class="split split--flip split--short">
+  <section class="split split--flip">
     <a class="split-media" href="craft.html" data-live tabindex="-1" aria-hidden="true"><img src="images/craft-tall.jpg" width="1120" height="1400" alt="" loading="lazy" decoding="async" onerror="this.remove()"></a>
     <div class="split-words"><div class="inner stack" data-reveal>
       <h2>The Process</h2>
@@ -75,7 +77,7 @@
       <p class="gap-m"><a class="more" href="craft.html">See the craft</a></p>
     </div></div>
   </section>
-  <section class="split split--short">
+  <section class="split">
     <a class="split-media" href="lamps.html" data-live tabindex="-1" aria-hidden="true"><img src="images/hero.jpg" width="1280" height="1600" alt="" loading="lazy" decoding="async" onerror="this.remove()"></a>
     <div class="split-words"><div class="inner stack" data-reveal>
       <h2>The Collection</h2>
@@ -93,7 +95,7 @@
       </ol>
     </div>
   </section>
-  <section class="split split--flip split--short">
+  <section class="split split--flip">
     <a class="split-media" href="contact.html" data-live tabindex="-1" aria-hidden="true"><img src="images/contact.jpg" width="1120" height="1400" alt="" loading="lazy" decoding="async" onerror="this.remove()"></a>
     <div class="split-words"><div class="inner stack" data-reveal>
       <h2>Now is the Time to Shine</h2>

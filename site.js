@@ -4,16 +4,32 @@
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // ---- Hero slideshow: photos change on their own with a slow cross-fade ----
+  // ---- Hero: five photos. They change on their own, slowly, and answer a click, tap, swipe or arrow key. ----
+  var hero = d.querySelector('.hero');
   var slides = d.querySelectorAll('.slide'), dots = d.querySelectorAll('.dots button'), cur = 0, timer = null;
-  if (slides.length) {
+  if (hero && slides.length) {
     var show = function (i) {
       slides[cur].classList.remove('is-on'); if (dots[cur]) dots[cur].setAttribute('aria-current', 'false');
       cur = (i + slides.length) % slides.length;
       slides[cur].classList.add('is-on'); if (dots[cur]) dots[cur].setAttribute('aria-current', 'true');
     };
-    var start = function () { if (!still) { clearInterval(timer); timer = setInterval(function () { show(cur + 1); }, 6500); } };
-    dots.forEach(function (b, i) { b.addEventListener('click', function () { show(i); start(); }); });
+    var start = function () { if (!still) { clearInterval(timer); timer = setInterval(function () { show(cur + 1); }, 10000); } };
+    var nudge = function (step) { show(cur + step); start(); };
+    dots.forEach(function (b, i) { b.addEventListener('click', function (e) { e.stopPropagation(); show(i); start(); }); });
+    // swipe or drag sideways; a plain click or tap moves on (left third goes back)
+    var x0 = null, y0 = null, moved = false;
+    hero.addEventListener('pointerdown', function (e) { if (e.target.closest('.dots')) return; x0 = e.clientX; y0 = e.clientY; moved = false; hero.classList.add('is-dragging'); });
+    hero.addEventListener('pointermove', function (e) { if (x0 !== null && Math.abs(e.clientX - x0) > 8) moved = true; });
+    var end = function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0, dy = e.clientY - y0; hero.classList.remove('is-dragging');
+      if (moved && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { nudge(dx < 0 ? 1 : -1); }
+      else if (!moved) { var r = hero.getBoundingClientRect(); nudge(e.clientX < r.left + r.width / 3 ? -1 : 1); }
+      x0 = null;
+    };
+    hero.addEventListener('pointerup', end);
+    hero.addEventListener('pointercancel', function () { x0 = null; hero.classList.remove('is-dragging'); });
+    hero.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') nudge(1); if (e.key === 'ArrowLeft') nudge(-1); });
     d.addEventListener('visibilitychange', function () { if (d.hidden) { clearInterval(timer); } else { start(); } });
     start();
   }
@@ -41,10 +57,10 @@
         if (r.bottom < -50 || r.top > vh + 50) return;
         // scroll: how far the frame's centre is from the screen's centre, -1 .. 1
         var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
-        o.py = t * r.height * 0.045;
+        o.py = t * r.height * 0.03;
         // magnet: ease toward the cursor, ease back to centre
-        o.mx += (o.tx - o.mx) * 0.08; o.my += (o.ty - o.my) * 0.08;
-        var lean = r.width * 0.018;
+        o.mx += (o.tx - o.mx) * 0.035; o.my += (o.ty - o.my) * 0.035;
+        var lean = r.width * 0.012;
         o.img.style.transform = 'translate3d(' + (o.mx * lean).toFixed(2) + 'px,' + (o.py + o.my * lean).toFixed(2) + 'px,0) scale(1.1)';
       });
       requestAnimationFrame(tick);

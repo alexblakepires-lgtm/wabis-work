@@ -8,7 +8,7 @@
 
 /* Moving between pages: a slow cross-fade; the header stays still */
 @view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.7s; animation-timing-function: ease; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 1.3s; animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
 .site-head { view-transition-name: site-head; }
 
 :root {
@@ -82,11 +82,13 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 .more:hover { color: var(--soft); }
 
 /* Hero slideshow */
-.hero { position: relative; height: calc(100vh - var(--head) - 6rem); height: calc(100svh - var(--head) - 6rem); min-height: 28rem; overflow: hidden; background: #6E5A44; }
-.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 2.2s ease; }
+.hero { position: relative; height: calc(100vh - var(--head) - 6rem); height: calc(100svh - var(--head) - 6rem); min-height: 28rem; overflow: hidden; background: #6E5A44; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.hero.is-dragging { cursor: grabbing; }
+.hero:focus-visible { outline-offset: -6px; }
+.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 3.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .slide.is-on { opacity: 1; }
-.js .slide.is-on { animation: drift 9s ease-out both; }
-@keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
+.js .slide.is-on { animation: drift 16s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
+@keyframes drift { from { transform: scale(1.045); } to { transform: scale(1); } }
 .hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 5rem; background: linear-gradient(to top, rgba(30, 22, 14, 0.35), rgba(30, 22, 14, 0)); pointer-events: none; }
 .dots { position: absolute; z-index: 2; left: 50%; bottom: 1.25rem; transform: translateX(-50%); display: flex; gap: 0.25rem; }
 .dots button { width: 2.25rem; height: 1.6rem; padding: 0; border: 0; background: none; cursor: pointer; }
@@ -95,34 +97,13 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 .intro { padding-top: clamp(2.5rem, 5vw, 4rem); }
 .intro h1 { max-width: 18em; margin-inline: auto; }
 
-/* Home intro: the problem and the answer side by side, mirrored on the centre line.
-   Left is flat and cool (ordinary light), right is warm with a glow (the lamp). The eye moves from the noise into the light. */
-.duo { position: relative; display: grid; grid-template-columns: 1fr 1fr; }
-.duo::before { content: ""; position: absolute; left: 50%; top: 18%; bottom: 18%; width: 1px; background: var(--line); }
-.duo-side { display: flex; align-items: center; padding: clamp(4.5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 6.5rem); }
-.duo-text { max-width: 30rem; }
-.duo-dim { justify-content: flex-end; text-align: right; background: linear-gradient(to right, #E7E3DC, #EEEAE3); color: #4A443E; }
-.duo-dim .lead, .duo-dim p { color: #6E6861; }
-.duo-dim h2 { color: #4A443E; }
-.duo-glow { justify-content: flex-start; text-align: left; background: radial-gradient(ellipse 85% 75% at 30% 50%, #FBF1DD 0%, #F6EBDB 38%, var(--paper) 78%); }
-.duo-glow h1 { font-size: clamp(2.2rem, 1rem + 3.4vw, 4.2rem); }
-.duo .spaced { padding-left: 0; }
-.duo-dim .spaced { padding-right: 0; margin-right: -0.36em; }
-@media (max-width: 56rem) {
-  .duo { grid-template-columns: 1fr; }
-  .duo::before { left: 30%; right: 30%; top: 50%; bottom: auto; width: auto; height: 1px; }
-  .duo-side { justify-content: center; text-align: center; padding-block: clamp(3.5rem, 12vw, 5rem); }
-  .duo-dim { background: linear-gradient(to bottom, #E7E3DC, #EEEAE3); }
-  .duo-glow { background: radial-gradient(ellipse 90% 70% at 50% 45%, #FBF1DD 0%, #F6EBDB 40%, var(--paper) 80%); }
-}
-
-/* Split: a photo to the edge of the screen, the words in the other half; sides alternate */
-.split { display: grid; grid-template-columns: 1fr 1fr; min-height: min(92vh, 62rem); }
-.split--short { min-height: min(78vh, 52rem); }
-.split-media { position: relative; display: block; min-height: 26rem; background: #D9D0C1; overflow: hidden; }
+/* Split: a photo and its words side by side, set inside the page with wide margins all round.
+   Photos are modest in size so the page breathes; sides alternate down each page. */
+.split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(3rem, 8vw, 9rem); max-width: 78rem; margin-inline: auto; padding: clamp(5rem, 11vw, 10rem) var(--pad); }
+.split-media { position: relative; display: block; width: 100%; max-width: 27rem; aspect-ratio: 4 / 5; justify-self: center; overflow: hidden; background: #E3DDD1; }
 .split-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.split-words { display: flex; flex-direction: column; justify-content: center; padding: clamp(3rem, 7vw, 7rem) clamp(1.5rem, 6vw, 7rem); }
-.split-words > .inner { max-width: 30rem; margin-inline: auto; }
+.split-words { display: flex; flex-direction: column; justify-content: center; }
+.split-words > .inner { max-width: 26rem; margin-inline: auto; }
 .split--flip .split-media { order: 2; }
 
 /* Frames in grids */
@@ -195,8 +176,8 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 
 /* Tablet and phone */
 @media (max-width: 56rem) {
-  .split, .split--short { grid-template-columns: 1fr; min-height: 0; }
-  .split-media { min-height: 0; aspect-ratio: 4 / 5; max-height: 80vh; width: 100%; }
+  .split { grid-template-columns: 1fr; gap: 2.5rem; padding-block: clamp(4rem, 12vw, 6rem); }
+  .split-media { max-width: 24rem; }
   .split--flip .split-media { order: 0; }
   .steps-list { grid-template-columns: 1fr; gap: 2.75rem; }
   .lamps > li { width: calc((100% - var(--g)) / 2); }
@@ -215,7 +196,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 /* Alive: photos that answer the cursor and the scroll (driven by site.js), words that rise into place */
 [data-live] { overflow: hidden; }
 [data-live] img { will-change: transform; transform: scale(1.1); }
-.js [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 1.1s ease, transform 1.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1), transform 2.6s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
