@@ -5,6 +5,7 @@
 
 @font-face { font-family: "Shippori Mincho"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/shippori-mincho-latin-400-normal.woff2") format("woff2"); }
 @font-face { font-family: "Shippori Mincho"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/shippori-mincho-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/montserrat-latin-400-normal.woff2") format("woff2"); }
 
 /* Moving between pages: a slow cross-fade; the header stays still */
 @view-transition { navigation: auto; }
@@ -19,6 +20,7 @@
   --soft: #6E6E6B;
   --line: #D6CEC0;
   --field: #8E867A;
+  --sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --font: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --pad: clamp(1.25rem, 4vw, 4rem);
   --head: 4.5rem;
@@ -44,7 +46,12 @@ button { font: inherit; color: inherit; }
 /* Type */
 h1 { font-size: clamp(2.2rem, 1.2rem + 4.2vw, 4.6rem); line-height: 1.18; letter-spacing: 0.01em; }
 h2 { font-size: clamp(1.8rem, 1.15rem + 2.5vw, 2.9rem); line-height: 1.3; }
-.split-words h2 { color: var(--moss); }
+/* Titles and links beside the photos follow Nakashima: small spaced capitals, moss green title, quiet grey link */
+.split-words h2 { font-family: var(--sans); font-size: 1rem; font-weight: 400; line-height: 1.4; letter-spacing: 0.19em; text-transform: uppercase; color: var(--moss); }
+.split-words .lead { font-size: 1.125rem; line-height: 1.75; }
+.split-words .more { padding: 0.4em 0; font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.17em; text-transform: uppercase; text-decoration: none; color: #858582; }
+.split-words .more::after { content: " >"; }
+.split-words .more:hover { color: var(--ink); }
 h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02em; }
 .lead { font-size: clamp(1.12rem, 1rem + 0.55vw, 1.4rem); line-height: 1.75; }
 .statement { font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.85rem); line-height: 1.55; }
@@ -111,8 +118,8 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 .split { display: grid; grid-template-columns: minmax(18rem, 27rem) minmax(18rem, 1fr); align-items: center; gap: clamp(3rem, 8vw, 9rem); max-width: 68rem; margin-inline: auto; padding: clamp(5rem, 11vw, 10rem) var(--pad); }
 .split-media { position: relative; display: block; width: 100%; max-width: 27rem; aspect-ratio: 4 / 5; justify-self: center; overflow: hidden; background: #E3DDD1; }
 .split-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.split-words { display: flex; flex-direction: column; justify-content: center; }
-.split-words > .inner { max-width: 26rem; margin-inline: auto; }
+.split-words { display: flex; flex-direction: column; justify-content: center; text-align: left; }
+.split-words > .inner { max-width: 26rem; margin-inline: 0; }
 .split--flip { grid-template-columns: minmax(18rem, 1fr) minmax(18rem, 27rem); }
 .split--flip .split-media { order: 2; }
 
