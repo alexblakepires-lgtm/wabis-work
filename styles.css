@@ -50,7 +50,7 @@ h2 { font-size: clamp(1.8rem, 1.15rem + 2.5vw, 2.9rem); line-height: 1.3; }
 .split-words h2 { font-family: var(--sans); font-size: clamp(0.8rem, 2cqi, 1rem); font-weight: 400; line-height: 1.4; letter-spacing: 0.19em; text-transform: uppercase; color: var(--moss); }
 .split-words p { font-size: clamp(0.88rem, 2.2cqi, 1.1rem); }
 .split-words .lead { font-size: clamp(0.9rem, 2.25cqi, 1.125rem); line-height: 1.75; }
-.split-words .statement { font-size: clamp(1.15rem, 3.7cqi, 1.85rem); }
+.split-words .statement { font-size: clamp(1rem, 2.6cqi, 1.3rem); line-height: 1.7; }
 .split-words .form-note { font-size: 0.95rem; }
 .split-words .more { padding: 0.4em 0; font-family: var(--sans); font-size: clamp(0.66rem, 1.5cqi, 0.75rem); letter-spacing: 0.17em; text-transform: uppercase; text-decoration: none; color: #858582; }
 .split-words .more::after { content: " >"; }
@@ -123,8 +123,8 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 
 /* Split: a photo and its words side by side, set inside the page with wide margins all round.
    Photos are modest in size so the page breathes; sides alternate down each page. */
-.split { container-type: inline-size; display: grid; grid-template-columns: minmax(18rem, 27rem) minmax(18rem, 27rem); justify-content: center; align-items: center; gap: clamp(3rem, 8vw, 9rem); max-width: 68rem; margin-inline: auto; padding: clamp(2.5rem, 5vw, 4.5rem) var(--pad); }
-.split-media { position: relative; display: block; width: 100%; max-width: 27rem; aspect-ratio: 4 / 5; justify-self: center; overflow: hidden; background: #E3DDD1; }
+.split { container-type: inline-size; display: grid; grid-template-columns: minmax(16rem, 22rem) minmax(16rem, 22rem); justify-content: center; align-items: center; gap: clamp(1.75rem, 3.5vw, 3rem); max-width: 68rem; margin-inline: auto; padding: clamp(2rem, 4vw, 3.5rem) var(--pad); }
+.split-media { position: relative; display: block; width: 100%; max-width: 22rem; aspect-ratio: 4 / 5; justify-self: center; overflow: hidden; background: #E3DDD1; }
 .split-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .split-words { display: flex; flex-direction: column; justify-content: center; text-align: left; }
 .split-words > .inner { max-width: none; margin-inline: 0; }
@@ -201,7 +201,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 
 /* Tablet and phone */
 @media (max-width: 44rem) {
-  .split, .split--flip { grid-template-columns: 1fr; gap: 2.5rem; padding-block: clamp(2rem, 7vw, 3rem); }
+  .split, .split--flip { grid-template-columns: 1fr; gap: 1.75rem; padding-block: clamp(2rem, 7vw, 3rem); }
   .split-media { max-width: none; aspect-ratio: auto; height: min(calc((100vw - 2 * var(--pad)) * 1.25), 85vh); height: min(calc((100vw - 2 * var(--pad)) * 1.25), 85svh); }
   .split--flip .split-media { order: 0; }
   .split-words > .inner { max-width: 34rem; }
