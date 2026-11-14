@@ -8,6 +8,8 @@
   var hero = d.querySelector('.hero');
   var slides = d.querySelectorAll('.slide'), dots = d.querySelectorAll('.dots button'), cur = 0, timer = null;
   if (hero && slides.length) {
+    // the first photo settles in from a touch closer, the same way the others do when they arrive
+    if (!still) { var f0 = slides[0]; f0.style.transition = 'none'; f0.style.transform = 'scale(1.035)'; void f0.offsetWidth; f0.style.transition = ''; f0.style.transform = ''; }
     var show = function (i) {
       slides[cur].classList.remove('is-on'); if (dots[cur]) dots[cur].setAttribute('aria-current', 'false');
       cur = (i + slides.length) % slides.length;
