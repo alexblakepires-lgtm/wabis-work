@@ -34,6 +34,16 @@
     start();
   }
 
+  // ---- Home header: tinted over the hero, page white once the hero has scrolled past ----
+  var head = d.querySelector('.site-head');
+  if (hero && head && d.body.classList.contains('home')) {
+    var solid = function () { head.classList.toggle('is-solid', hero.getBoundingClientRect().bottom <= head.offsetHeight + 1); };
+    var ticking = false;
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; solid(); }); } }, { passive: true });
+    window.addEventListener('resize', solid);
+    solid();
+  }
+
   // ---- Alive photos: they drift with the scroll and lean toward the cursor, or toward the way the phone is tilted ----
   // The hero photos lean too. Everything eases slowly back to centre.
   var live = [].slice.call(d.querySelectorAll('[data-live]')).map(function (el) {
