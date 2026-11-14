@@ -104,10 +104,10 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 30rem; overflow: hidden; background: #6E5A44; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .hero.is-dragging { cursor: grabbing; }
 .hero:focus-visible { outline-offset: -6px; }
-.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); will-change: translate; opacity: 0; transition: opacity 3.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); will-change: translate; opacity: 0; transition: opacity 3.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .slide.is-on { opacity: 1; }
 .js .slide.is-on { animation: drift 16s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
-@keyframes drift { from { transform: scale(1.1); } to { transform: scale(1.06); } }
+@keyframes drift { from { transform: scale(1.035); } to { transform: scale(1.02); } }
 .hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgba(24, 18, 12, 0.5), rgba(24, 18, 12, 0.18) 45%, rgba(24, 18, 12, 0)); pointer-events: none; }
 /* Words on the photo, as on Nakashima's opening image: lower left, white, quiet */
 .hero-words { position: absolute; z-index: 2; left: max(var(--pad), 2rem); bottom: clamp(4.5rem, 10vh, 7rem); max-width: 32rem; text-align: left; color: #FFFFFF; pointer-events: none; text-shadow: 0 1px 16px rgba(0, 0, 0, 0.25); }
@@ -123,7 +123,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 
 /* Split: a photo and its words side by side, set inside the page with wide margins all round.
    Photos are modest in size so the page breathes; sides alternate down each page. */
-.split { container-type: inline-size; display: grid; grid-template-columns: minmax(18rem, 27rem) minmax(18rem, 27rem); justify-content: center; align-items: center; gap: clamp(3rem, 8vw, 9rem); max-width: 68rem; margin-inline: auto; padding: clamp(5rem, 11vw, 10rem) var(--pad); }
+.split { container-type: inline-size; display: grid; grid-template-columns: minmax(18rem, 27rem) minmax(18rem, 27rem); justify-content: center; align-items: center; gap: clamp(3rem, 8vw, 9rem); max-width: 68rem; margin-inline: auto; padding: clamp(2.5rem, 5vw, 4.5rem) var(--pad); }
 .split-media { position: relative; display: block; width: 100%; max-width: 27rem; aspect-ratio: 4 / 5; justify-self: center; overflow: hidden; background: #E3DDD1; }
 .split-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .split-words { display: flex; flex-direction: column; justify-content: center; text-align: left; }
@@ -201,7 +201,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 
 /* Tablet and phone */
 @media (max-width: 44rem) {
-  .split, .split--flip { grid-template-columns: 1fr; gap: 3.5rem; padding-block: clamp(4rem, 10vw, 7rem); }
+  .split, .split--flip { grid-template-columns: 1fr; gap: 2.5rem; padding-block: clamp(2rem, 7vw, 3rem); }
   .split-media { max-width: none; aspect-ratio: auto; height: min(calc((100vw - 2 * var(--pad)) * 1.25), 85vh); height: min(calc((100vw - 2 * var(--pad)) * 1.25), 85svh); }
   .split--flip .split-media { order: 0; }
   .split-words > .inner { max-width: 34rem; }
@@ -229,7 +229,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
 }
 /* Alive: photos that answer the cursor and the scroll (driven by site.js), words that rise into place */
 [data-live] { overflow: hidden; }
-[data-live] img { will-change: translate; transform: scale(1.1); }
+[data-live] img { will-change: translate; transform: scale(1.05); }
 .js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1), transform 2.6s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 

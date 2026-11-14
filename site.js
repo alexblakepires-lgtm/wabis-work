@@ -86,9 +86,9 @@
         if (r.bottom < -50 || r.top > vh + 50) return;
         var gx = tilting ? tiltX : o.tx, gy = tilting ? tiltY : o.ty;
         o.mx += (gx - o.mx) * 0.035; o.my += (gy - o.my) * 0.035;
-        var lean = Math.min(r.width, 900) * (o.scroll ? 0.012 : 0.01);
+        var lean = Math.min(r.width, 900) * (o.scroll ? 0.008 : 0.006);
         var py = 0;
-        if (o.scroll) { var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2); py = t * r.height * 0.03; }
+        if (o.scroll) { var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2); py = t * r.height * 0.015; }
         var v = (o.mx * lean).toFixed(2) + 'px ' + (py + o.my * lean).toFixed(2) + 'px';
         if (o.img) { o.img.style.translate = v; }
         if (o.imgs) { o.imgs.forEach(function (im) { im.style.translate = v; }); }
