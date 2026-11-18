@@ -240,3 +240,7 @@ h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.02
   .slide { transition: none; }
   .btn, .opt .frame, .opt .swatch, .split-media img { transition: none; }
 }
+
+/* ?capture: a still, fully visible page for importing into design tools */
+.capture [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+.capture .slide, .capture [data-live] img { transition: none !important; translate: none !important; }

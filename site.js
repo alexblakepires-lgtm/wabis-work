@@ -1,7 +1,13 @@
 // Wabis Work: shared behaviour for every page.
 (function () {
   var d = document;
-  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ?capture: everything visible at once, every photo loaded, no motion. For importing pages into design tools; visitors never see it.
+  var capture = /[?&]capture\b/.test(location.search);
+  if (capture) {
+    d.documentElement.classList.add('capture');
+    d.querySelectorAll('img[loading="lazy"]').forEach(function (i) { i.loading = 'eager'; });
+  }
+  var still = capture || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var finePointer = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // ---- Hero: five photos. They change on their own, slowly, and answer a click, tap, swipe or arrow key. ----
